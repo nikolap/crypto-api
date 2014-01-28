@@ -4,4 +4,4 @@
             [crypto-api.utils :as utils]))
 
 (defn -main [& args]
-  (println (btce/trade-history)))
+  (println (bitfinex/get-ticker "btcusd")))

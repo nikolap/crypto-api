@@ -6,36 +6,32 @@
 ; Constants
 (def public-url "https://btc-e.com/api/3/")
 
-; API calls
-; Public calls
-(defn get-public-call
-  [url]
-  (let [method url]
-    (utils/get-request method)))
-
+; Helper functions
 (defn format-url
   [currency-pair method]
   (format "%s%s/%s" public-url (name method) (name currency-pair)))
 
+; API calls
+; Public calls
 (defn get-trade-fee
   [c1 c2]
   (let [base-url (format-url (format "%s_%s" (name c1) (name c2)) "fee")]
-    (get-public-call base-url)))
+    (utils/get-request  base-url)))
 
 (defn get-ticker
   [c1 c2]
   (let [base-url (format-url (format "%s_%s" (name c1) (name c2)) "ticker")]
-    (get-public-call base-url)))
+    (utils/get-request  base-url)))
 
 (defn get-depth
   [c1 c2]
   (let [base-url (format-url (format "%s_%s" (name c1) (name c2)) "depth")]
-    (get-public-call base-url)))
+    (utils/get-request  base-url)))
 
 (defn get-trades-history
   [& {:keys [c1 c2]}]
   (let [base-url (format-url (format "%s_%s" (name c1) (name c2)) "trades")]
-    (get-public-call base-url)))
+    (utils/get-request base-url)))
 
 ; Private calls
 (defn get-info

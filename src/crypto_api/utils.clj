@@ -6,7 +6,7 @@
 
 ; Constants
 (def api-urls {:btce "https://btc-e.com/tapi" :bitfinex "https://api.bitfinex.com/v1"})
-(def user-agent "crypto-api 0.1.3")
+(def user-agent "crypto-api 0.1.4")
 (def config (with-open [r (io/reader "resources/api_keys.cfg")]
               (read (java.io.PushbackReader. r))))
 
@@ -35,11 +35,12 @@
       (format "%s=%s" k v))) (:private credentials)))
 
 (defn get-request
-  [method]
+  [method & [params]]
   (let [options {:method :get
                  :user-agent user-agent
                  :insecure? false
-                 :content-type "application/json"}]
+                 :content-type "application/json"
+                 :form-params params}]
     (let [response @(http/get method options)]
       (if (success? response) (json/read-str (response :body))))))
 

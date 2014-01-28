@@ -1,8 +1,5 @@
 (ns crypto-api.core
-  (:require [crypto-api.btce :as btce]))
-
-
-(def api (btce/credentials "PUBLIC" "PRIVATE"))
+  (:require [crypto-api.utils :as utils]))
 
 (defn -main [& args]
-  (println (btce/trans-history api)))
+  (println (utils/get-api-key :btce)))

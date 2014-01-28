@@ -1,14 +1,14 @@
 (ns crypto-api.utils
   [:use [pandect.core]]
   [:require [org.httpkit.client :as http]
-            [clojure.data.json :as json]
-            [clojure.java.io :as io]])
+   [clojure.data.json :as json]
+   [clojure.java.io :as io]])
 
 ; Constants
-(def api-urls {:btce "https://btc-e.com/api/3/" :bitfinex "https://api.bitfinex.com/v1"})
+(def api-urls {:btce "https://btc-e.com/tapi" :bitfinex "https://api.bitfinex.com/v1"})
 (def user-agent "crypto-api 0.1.2")
 (def config (with-open [r (io/reader "resources/api_keys.cfg")]
-    (read (java.io.PushbackReader. r))))
+              (read (java.io.PushbackReader. r))))
 
 (defn load-config [filename]
   (with-open [r (io/reader filename)]

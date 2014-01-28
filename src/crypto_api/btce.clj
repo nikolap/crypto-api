@@ -60,7 +60,7 @@
 (defn trade
   [c1 c2 c-type rate amount]
   (utils/post-request :btce {"method" "ActiveOrders" "nonce" (utils/nonce) "pair"
-                      (format "%s_%s" (name c1) (name c2)) "type" c-type "rate" rate "amount" amount}))
+                             (format "%s_%s" (name c1) (name c2)) "type" c-type "rate" rate "amount" amount}))
 
 (defn cancel-order
   [order-id]

@@ -4,4 +4,4 @@
             [crypto-api.utils :as utils]))
 
 (defn -main [& args]
-  (println (btce/trans-history)))
+  (println (btce/get-info)))

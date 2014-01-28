@@ -33,7 +33,7 @@
     (get-public-call base-url)))
 
 (defn get-trades-history
-  [c1 c2]
+  [& {:keys [c1 c2]}]
   (let [base-url (format-url (format "%s_%s" (name c1) (name c2)) "trades")]
     (get-public-call base-url)))
 
@@ -42,20 +42,26 @@
   []
   (utils/post-request :btce {"method" "getInfo" "nonce" (utils/nonce)}))
 
-; TODO optional params
 (defn trans-history
-  []
+  [& {:keys [from t-count from-id end-id order since end]
+      :or {from "" t-count "" from-id "" end-id "" order "" since "" end ""}}]
   (utils/post-request :btce {"method" "TransHistory" "nonce" (utils/nonce)}))
 
-; TODO optional params
 (defn trade-history
-  []
-  (utils/post-request :btce {"method" "TradeHistory" "nonce" (utils/nonce)}))
+  [& {:keys [from t-count from-id end-id order since end c1 c2]
+      :or {from "" t-count "" from-id "" end-id "" order "" since "" end ""}}]
+  (utils/post-request :btce {"method" "TradeHistory" "nonce" (utils/nonce) "from" from "count" t-count
+                             "from_id" from-id "end_id" end-id "order" order "since" since "end" end
+                             "pair" (if-not (nil? c1)
+                                      (format "%s_%s" (name c1) (name c2))
+                                      "")}))
 
-; TODO optional params
 (defn active-orders
-  []
-  (utils/post-request :btce {"method" "ActiveOrders" "nonce" (utils/nonce)}))
+  [& {:keys [c1 c2]}]
+  (utils/post-request :btce {"method" "ActiveOrders" "nonce" (utils/nonce)
+                             "pair" (if-not (nil? c1)
+                                      (format "%s_%s" (name c1) (name c2))
+                                      "")}))
 
 (defn trade
   [c1 c2 c-type rate amount]
